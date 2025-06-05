@@ -1,0 +1,60 @@
+defaults:
+  - override hydra/job_logging: disabled
+
+_target_: src.types.ExperimentConfig
+num_episodes: 32
+env_seed: [0,1,2]
+model_seed: 0
+override_model_seed: true
+verbose: false
+baseline_data_dir: ../embedding_models/
+exp_name: figure_3_competitive
+confirm_include_api_models: true  # Warning: will incur API costs
+fixed_interceptor: ""
+match_encoder_decoder: true # Only look at cases where enc == dec
+models:
+  - _target_: src.types.BaselineModel
+    model_key: GloVe
+    model_id: GloVe
+    global_guess: true
+    baseline_k: 16
+    
+  - _target_: src.types.BaselineModel
+    model_key: Word2Vec
+    model_id: Word2Vec
+    global_guess: true
+    baseline_k: 16
+    
+  - _target_: src.types.LocalModel
+    model_key: llama3.1_8B
+    model_id: meta-llama/Meta-Llama-3.1-8B-Instruct
+    urls: 
+        - http://localhost:8000/v1  # replace by vllm address, e.g. http://{node_name}:{port}/v1
+    max_tokens: 750
+    temperature: 0.6
+    
+  - _target_: src.types.LocalModel
+    model_key: llama3.1_70B
+    model_id: meta-llama/Meta-Llama-3.1-70B-Instruct
+    urls:
+        - http://localhost:8001/v1
+    max_tokens: 750
+    temperature: 0.6
+
+  - _target_: src.types.LocalModel
+    model_key: deepseek_r1_32B
+    model_id: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+    urls: 
+        - http://localhost:8002/v1
+    max_tokens: 3000
+    temperature: 0.6
+
+  - _target_: src.types.OpenAIModel
+    model_key: gpt-4o
+    model_id: gpt-4o
+    api_key_name: OPENAI_PRIMARY_KEY  # replace with your key name, stored in .env file
+    temperature: 0.6
+    max_tokens: 750
+    # use_azure: true
+    # api_version: 2024-06-01
+    # api_host_name: AZURE_OPENAI_HOST

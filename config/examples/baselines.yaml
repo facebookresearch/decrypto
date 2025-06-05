@@ -1,0 +1,23 @@
+defaults:
+  - override hydra/job_logging: disabled
+
+_target_: src.types.ExperimentConfig
+num_episodes: 1
+env_seed: [0]
+verbose: false
+baseline_data_dir: ../embedding_models/
+exp_name: baseline_example
+models:
+  - _target_: src.types.BaselineModel
+    model_key: "baseline-GloVe"
+    model_id: "GloVe"
+    global_guess: true
+    baseline_k: 16
+    model_seed: 0
+    
+  - _target_: src.types.BaselineModel
+    model_key: "baseline-Word2Vec"
+    model_id: "Word2Vec"
+    global_guess: true
+    baseline_k: 16
+    model_seed: 0

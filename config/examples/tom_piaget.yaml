@@ -1,0 +1,19 @@
+defaults:
+  - override hydra/job_logging: disabled
+
+_target_: src.types.ExperimentConfig
+num_episodes: 1
+env_seed: [0]
+verbose: false
+baseline_data_dir: ../embedding_models/
+exp_name: piaget_example
+piaget: true
+no_error_history: true
+models:
+  - _target_: src.types.LocalModel
+    model_key: llama3.1_70B
+    model_id: meta-llama/Meta-Llama-3.1-70B-Instruct
+    urls:
+      - http://localhost:8000/v1  # Replace with your local model URL
+    max_tokens: 1000
+    temperature: 0.0

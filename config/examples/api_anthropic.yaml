@@ -1,0 +1,18 @@
+defaults:
+  - override hydra/job_logging: disabled
+
+_target_: src.types.ExperimentConfig
+num_episodes: 1
+env_seed: [0]
+verbose: false
+baseline_data_dir: ../embedding_models/
+exp_name: api_anthropic_example
+confirm_include_api_models: true  # Warning: will incur API costs
+models:    
+  - _target_: src.types.AnthropicModel
+    model_key: claude3.7
+    model_id: claude-3-7-sonnet-20250219
+    api_key_name: ANTHROPIC_API_KEY      # Anthropic key name, stored in .env file
+    temperature: 0.6
+    max_tokens: 750
+    max_reasoning_tokens: 250

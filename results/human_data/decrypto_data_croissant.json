@@ -1,0 +1,275 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "arrayShape": "cr:arrayShape",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataBiases": "cr:dataBiases",
+    "dataCollection": "cr:dataCollection",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isArray": "cr:isArray",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "personalSensitiveInformation": "cr:personalSensitiveInformation",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "repo",
+      "name": "repo",
+      "description": "The JSON file containing the dataset.",
+      "contentUrl": "https://anonymous.4open.science/r/decrypto/src/results/human_data/decrypto_human_data.json",
+      "encodingFormat": "application/json",
+      "sha256": "https://github.com/mlcommons/croissant/issues/80"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "default",
+      "description": "anon/decrypto_human_data - 'default' subset",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "default/split",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "repo"
+            },
+            "extract": {
+              "jsonPath": "$.split"
+            }
+          }
+        },
+    {
+          "@type": "cr:Field",
+          "@id": "default/episode",
+          "dataType": "cr:Int64",
+          "source": {
+            "fileSet": {
+              "@id": "repo"
+            },
+            "extract": {
+              "jsonPath": "$.episode"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/combined_history",
+          "subField": [
+            {
+              "@type": "cr:Field",
+              "@id": "default/combined_history/content",
+              "dataType": "sc:Text",
+              "source": {
+                "fileSet": {
+                  "@id": "repo"
+                },
+                "extract": {
+                  "jsonPath": "$.combined_history.content"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "@id": "default/combined_history/role",
+              "dataType": "sc:Text",
+              "source": {
+                "fileSet": {
+                  "@id": "repo"
+                },
+                "extract": {
+                  "jsonPath": "$.combined_history.role"
+                }
+              }
+            }
+          ],
+          "isArray": true,
+          "arrayShape": "-1"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/summarized_history",
+          "subField": [
+            {
+              "@type": "cr:Field",
+              "@id": "default/summarized_history/code",
+              "dataType": "sc:Text",
+              "source": {
+                "fileSet": {
+                  "@id": "repo"
+                },
+                "extract": {
+                  "jsonPath": "$.summarized_history.code"
+                }
+              }
+            },
+            {
+              "@type": "cr:Field",
+              "@id": "default/summarized_history/guess_bob",
+              "dataType": "cr:Int64",
+              "source": {
+                "fileSet": {
+                  "@id": "repo"
+                },
+                "extract": {
+                  "jsonPath": "$.summarized_history.guess_bob"
+                }
+              },
+              "isArray": true,
+              "arrayShape": "-1"
+            },
+            {
+              "@type": "cr:Field",
+              "@id": "default/summarized_history/guess_eve",
+              "dataType": "cr:Int64",
+              "source": {
+                "fileSet": {
+                  "@id": "repo"
+                },
+                "extract": {
+                  "jsonPath": "$.summarized_history.guess_eve"
+                }
+              },
+              "isArray": true,
+              "arrayShape": "-1"
+            },
+            {
+              "@type": "cr:Field",
+              "@id": "default/summarized_history/hints",
+              "dataType": "sc:Text",
+              "source": {
+                "fileSet": {
+                  "@id": "repo"
+                },
+                "extract": {
+                  "jsonPath": "$.summarized_history.hints"
+                }
+              },
+              "isArray": true,
+              "arrayShape": "-1"
+            },
+            {
+              "@type": "cr:Field",
+              "@id": "default/summarized_history/keywords",
+              "dataType": "sc:Text",
+              "source": {
+                "fileSet": {
+                  "@id": "repo"
+                },
+                "extract": {
+                  "jsonPath": "$.summarized_history.keywords"
+                }
+              },
+              "isArray": true,
+              "arrayShape": "-1"
+            },
+        {
+              "@type": "cr:Field",
+              "@id": "default/summarized_history/keywords",
+              "dataType": "sc:Text",
+              "source": {
+                "fileSet": {
+                  "@id": "repo"
+                },
+                "extract": {
+                  "jsonPath": "$.summarized_history.keywords"
+                }
+              },
+              "isArray": true,
+              "arrayShape": "-1"
+            },
+            {
+              "@type": "cr:Field",
+              "@id": "default/summarized_history/turn",
+              "dataType": "cr:Int64",
+              "source": {
+                "fileSet": {
+                  "@id": "repo"
+                },
+                "extract": {
+                  "jsonPath": "$.summarized_history.turn"
+                }
+              }
+            }
+          ],
+          "isArray": true,
+          "arrayShape": "-1"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "default/turns",
+          "dataType": "cr:Int64",
+          "source": {
+            "fileSet": {
+              "@id": "repo"
+            },
+            "extract": {
+              "jsonPath": "$.turns"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "name": "decrypto_human_data",
+  "description": "anon/decrypto_human_data dataset hosted on Hugging Face and contributed by the HF Datasets community",
+  "alternateName": [
+    "anon/decrypto_human_data"
+  ],
+  "creator": {
+    "@type": "Person",
+    "name": "author",
+    "url": "https://huggingface.co/anon_for_submission"
+  },
+  "keywords": [
+    "cc-by-2.0",
+    "\u003C 1K",
+    "json",
+    "Tabular",
+    "Text",
+    "Datasets",
+    "pandas",
+    "Croissant",
+    "Polars",
+    "\u0025 Region: US"
+  ],
+  "license": "https://choosealicense.com/licenses/cc-by-2.0/",
+  "url": "https://anonymous.4open.science/r/decrypto/src/results/human_data/decrypto_human_data.json"
+}
