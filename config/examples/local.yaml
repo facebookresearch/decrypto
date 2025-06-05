@@ -1,0 +1,20 @@
+defaults:
+  - override hydra/job_logging: disabled
+
+_target_: src.types.ExperimentConfig
+num_episodes: 1
+env_seed: [0]
+verbose: false
+baseline_data_dir: ../embedding_models/
+exp_name: local_example
+match_encoder_decoder: true
+fixed_interceptor: ""
+filter_model: ""
+models:
+  - _target_: src.types.LocalModel
+    model_key: llama3.1_70B
+    model_id: meta-llama/Meta-Llama-3.1-70B-Instruct
+    urls:
+        - http://localhost:8000/v1
+    max_tokens: 750
+    temperature: 0.6

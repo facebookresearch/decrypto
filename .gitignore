@@ -1,0 +1,13 @@
+*.json
+*.csv
+*.png
+*.pyc
+*.html
+*.safetensors
+*.txt
+*.zip
+src/results/
+results/
+*.ipynb_checkpoints*
+*.swp
+.env

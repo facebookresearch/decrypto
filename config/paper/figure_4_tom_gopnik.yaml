@@ -1,0 +1,66 @@
+defaults:
+  - override hydra/job_logging: disabled
+
+_target_: src.types.ExperimentConfig
+num_episodes: 32
+env_seed: [0,1,2]
+verbose: false
+baseline_data_dir: ../embedding_models/
+exp_name: figure_4_tom_gopnik
+gopnik: true
+fixed_encoder: deepseek_r1_32B
+fixed_decoder: deepseek_r1_32B
+fixed_interceptor: ""
+filter_model: ""
+confirm_include_api_models: true
+no_error_history: true
+models:
+  - _target_: src.types.AnthropicModel
+    model_key: claude3.7
+    model_id: claude-3-7-sonnet-20250219
+    api_key_name: ANTHROPIC_API_KEY      # Anthropic key name, stored in .env file
+    temperature: 0.0
+    max_tokens: 1500
+    max_reasoning_tokens: 1024
+
+  - _target_: src.types.OpenAIModel
+    model_key: o1
+    model_id: o1
+    api_key_name: OPENAI_PRIMARY_KEY_o1  # OpenAI key name, stored in .env file
+    temperature: 0.0
+    max_tokens: 10000
+    use_azure: true
+    api_version: 2024-12-01-preview
+    api_host_name: OPENAI_HOST_o1  # Azure OpenAI host name, stored in .env file
+    # use_litellm: true
+    # num_retries: 100
+    # provider_route: "azure/"
+
+  - _target_: src.types.OpenAIModel
+    model_key: gpt-4o
+    model_id: gpt-4o
+    use_azure: true
+    api_version: 2024-06-01
+    api_host_name: OPENAI_HOST  # Azure OpenAI host name, stored in .env file
+    api_key_name: OPENAI_PRIMARY_KEY  # OpenAI key name, stored in .env file
+    max_tokens: 1000
+    temperature: 0.0
+    use_litellm: true
+    num_retries: 100
+    provider_route: "azure/"
+    
+  - _target_: src.types.LocalModel
+    model_key: llama3.1_70B
+    model_id: meta-llama/Meta-Llama-3.1-70B-Instruct
+    urls:
+        - http://localhost:8000/v1
+    max_tokens: 1000
+    temperature: 0.0
+
+  - _target_: src.types.LocalModel
+    model_key: deepseek_r1_32B
+    model_id: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+    urls: 
+        - http://localhost:8000/v1
+    max_tokens: 3000
+    temperature: 0.0

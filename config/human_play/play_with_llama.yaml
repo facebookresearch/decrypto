@@ -1,0 +1,31 @@
+defaults:
+  - override hydra/job_logging: disabled
+
+_target_: src.types.HumanExperimentConfig
+num_episodes: 1
+env_seed: [1789]
+verbose: false
+baseline_data_dir: ../embedding_models/
+exp_name: human_play_example
+models: # Exactly three models required, in order: encoder, decoder, interceptor
+  - _target_: src.types.Human
+    model_key: alice
+    model_id: human
+
+  - _target_: src.types.LocalModel
+    model_key: llama3.1_70B
+    model_id: meta-llama/Meta-Llama-3.1-70B-Instruct
+    urls:
+      - http://localhost:8000/v1
+    max_tokens: 750
+    temperature: 0.6
+    model_seed: 0
+    
+  - _target_: src.types.LocalModel
+    model_key: llama3.1_70B
+    model_id: meta-llama/Meta-Llama-3.1-70B-Instruct
+    urls: 
+        - http://localhost:8000/v1
+    max_tokens: 750
+    temperature: 0.6
+    model_seed: 0
